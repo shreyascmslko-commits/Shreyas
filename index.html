@@ -3,469 +3,368 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#100a2b">
-<title>S&S WonderVerse ✨ Explore and Have Fun!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b24">
+<title>S&S WonderVerse — Explore and Have Fun!</title>
+
 <style>
-:root{
-  --bg:#100a2b;--panel:#211643;--gold:#ffe4a0;
-  --pink:#ff9ed6;--blue:#9deaff;--purple:#b9a1ff;
-  --white:#fff9ff;--muted:#d4c9ed;
+:root {
+  --bg:#080a20;
+  --panel:rgba(23,27,65,.82);
+  --text:#fbfaff;
+  --muted:#c0c6e8;
+  --pink:#ff63c8;
+  --blue:#68e5ff;
+  --purple:#a58aff;
+  --gold:#ffe49a;
+  --border:rgba(255,255,255,.16);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{
-  margin:0;background:var(--bg);color:var(--white);
-  font-family:system-ui,Arial,sans-serif;overflow-x:hidden
+  margin:0;color:var(--text);
+  background:radial-gradient(ellipse at 20% 0%,#27205c 0,transparent 40%),
+  radial-gradient(ellipse at 90% 35%,#102d57 0,transparent 38%),var(--bg);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  overflow-x:hidden;transition:background .3s,color .3s
 }
+body.light{
+  --bg:#f1f2ff;--panel:rgba(255,255,255,.88);
+  --text:#171936;--muted:#565d7f;--border:rgba(35,40,90,.15);
+  background:radial-gradient(ellipse at 15% 0%,#e6d8ff,transparent 40%),
+  radial-gradient(ellipse at 90% 35%,#d4f4ff,transparent 38%),var(--bg)
+}
+a{color:inherit;text-decoration:none}
 button,input,select{font:inherit}
-button,a{touch-action:manipulation}
-button:focus-visible,a:focus-visible,input:focus-visible{
+button{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
   outline:3px solid var(--blue);outline-offset:3px
 }
-a{color:var(--blue)}
-button{
-  border:0;cursor:pointer;color:#24113b;font-weight:800;
-  background:linear-gradient(120deg,var(--gold),var(--pink));
-  border-radius:14px;padding:12px 18px;
-  transition:transform .2s,filter .2s
-}
-button:hover{transform:translateY(-2px);filter:brightness(1.08)}
-.btn{
-  display:inline-block;padding:12px 18px;border-radius:14px;
-  text-decoration:none;font-weight:800;color:#25133d;
-  background:linear-gradient(120deg,var(--gold),var(--pink))
-}
-.btn.alt{background:#ffffff12;color:white;border:1px solid #ffffff40}
-#intro{
-  position:fixed;inset:0;z-index:1000;
-  display:grid;place-items:center;text-align:center;
-  padding:22px;background:
-    radial-gradient(ellipse at top,#573b91 0%,transparent 55%),
-    radial-gradient(ellipse at bottom,#3b205f 0%,#100a2b 70%);
-  transition:opacity .8s,visibility .8s
-}
-#intro.done{opacity:0;visibility:hidden;pointer-events:none}
-.intro-box{max-width:540px;width:100%;animation:introIn 1.2s both}
-@keyframes introIn{
-  from{opacity:0;transform:translateY(25px) scale(.92)}
-  to{opacity:1;transform:translateY(0) scale(1)}
-}
-.logo-frame{
-  position:relative;padding:25px;border-radius:32px;
-  border:2px solid var(--gold);
-  background:linear-gradient(145deg,#ffffff12,#ffffff03);
-  box-shadow:0 0 22px #ffe4a055,inset 0 0 22px #b9a1ff18;
-  animation:frameGlow 3s infinite alternate
-}
-@keyframes frameGlow{
-  from{box-shadow:0 0 14px #ffe4a044,inset 0 0 15px #b9a1ff18}
-  to{box-shadow:0 0 40px #ff9ed666,inset 0 0 28px #b9a1ff35}
-}
-.logo{
-  width:155px;height:155px;margin:auto;
-  display:grid;place-items:center;border-radius:50%;
-  border:3px double var(--gold);
-  background:radial-gradient(circle,#6546a1,#21143f 70%);
-  box-shadow:inset 0 0 25px #ffffff30;
-}
-.logo svg{width:125px;height:125px}
-#intro h1{font-size:clamp(27px,6vw,43px);margin:22px 0 8px}
-.gold{color:var(--gold)}
-#intro p{color:var(--muted);line-height:1.7}
-.intro-stars{font-size:23px;letter-spacing:10px;animation:twinkle 2s infinite alternate}
-@keyframes twinkle{to{opacity:.55;transform:scale(1.04)}}
-#space{
-  position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse at 10% 15%,#39225b55,transparent 40%)
-}
-.star{position:absolute;color:#fff1bd;animation:twinkle 3s infinite alternate}
+
+/* Always-visible animated universe */
+#starfield{position:fixed;inset:0;pointer-events:none;z-index:-2;overflow:hidden}
+.star{position:absolute;border-radius:50%;background:white;animation:twinkle 3s ease-in-out infinite alternate}
+.aurora{position:fixed;z-index:-1;pointer-events:none;width:300px;height:300px;border-radius:50%;filter:blur(65px);opacity:.16;animation:drift 13s ease-in-out infinite alternate}
+.aurora.a{background:#ff54c9;left:-150px;top:25%}
+.aurora.b{background:#54dcff;right:-150px;top:65%;animation-delay:-5s}
+@keyframes twinkle{from{opacity:.18;transform:scale(.7)}to{opacity:1;transform:scale(1.2)}}
+@keyframes drift{to{transform:translate(55px,-35px) scale(1.15)}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-13px) rotate(2deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes glow{0%,100%{box-shadow:0 0 15px #ff63c844}50%{box-shadow:0 0 35px #68e5ff88}}
+@keyframes shimmer{to{background-position:200% center}}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{transform:scale(1.04)}}
+
 header{
-  position:sticky;top:0;z-index:20;display:flex;align-items:center;
-  justify-content:space-between;gap:12px;flex-wrap:wrap;
-  padding:13px 5%;background:#160e2fee;
-  border-bottom:1px solid #ffffff1c;backdrop-filter:blur(14px)
+  position:sticky;top:0;z-index:20;
+  background:rgba(8,10,32,.82);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border)
 }
-.brand{font-weight:900;color:var(--gold)}
-nav{display:flex;gap:13px;flex-wrap:wrap}
-nav a{text-decoration:none;color:var(--muted);font-size:14px}
-nav a:hover{color:white}
+body.light header{background:rgba(241,242,255,.88)}
+nav{
+  max-width:1200px;margin:auto;padding:12px 20px;
+  display:flex;align-items:center;gap:15px
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:-.5px}
+.brand-icon{
+  display:grid;place-items:center;width:42px;height:42px;border-radius:15px;
+  background:linear-gradient(135deg,var(--pink),var(--purple),var(--blue));
+  box-shadow:0 0 25px #a58aff55;font-size:23px
+}
+.navlinks{display:flex;gap:4px;margin-left:auto;align-items:center}
+.navlinks a{color:var(--muted);font-size:.88rem;padding:10px;border-radius:12px}
+.navlinks a:hover{background:var(--panel);color:var(--text)}
+.nav-actions{display:flex;gap:8px}
+.icon-btn{
+  background:var(--panel);color:var(--text);border:1px solid var(--border);
+  border-radius:13px;min-width:42px;height:42px
+}
+#menuButton{display:none}
+
+main{max-width:1200px;margin:auto;padding:0 20px}
 .hero{
-  text-align:center;padding:75px 6%;
-  background:linear-gradient(120deg,#402565,#201644,#612b62,#242358);
-  background-size:300% 300%;animation:gradient 16s infinite
+  min-height:590px;display:grid;grid-template-columns:1.1fr .9fr;
+  align-items:center;gap:35px;padding:65px 0 55px
 }
-@keyframes gradient{50%{background-position:100% 50%}}
-.hero-inner{max-width:800px;margin:auto}
-h1{font-size:clamp(36px,7vw,65px);line-height:1.1}
-.hero p{max-width:650px;margin:20px auto 28px;color:#f0e7ff;line-height:1.8}
-.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
-section{max-width:1180px;margin:auto;padding:48px 6%;scroll-margin-top:75px}
-h2{font-size:clamp(25px,4vw,34px);margin:0 0 10px}
-.muted{color:var(--muted);line-height:1.75}
-.panel{
-  background:linear-gradient(145deg,#291c4a,#18112f);
-  border:1px solid #ffffff20;border-radius:22px;padding:20px
+.pill{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;
+  border:1px solid var(--border);background:var(--panel);border-radius:99px;
+  color:var(--muted);font-size:.84rem
 }
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr));gap:16px;margin-top:20px}
-.card{
-  padding:19px;border-radius:18px;
-  background:linear-gradient(145deg,#332252,#1d1639);
-  border:1px solid #ffffff20;transition:transform .25s,border-color .25s
+.live-dot{width:8px;height:8px;background:#6dffae;border-radius:50%;box-shadow:0 0 12px #6dffae}
+.hero h1{font-size:clamp(2.8rem,7vw,5.5rem);line-height:.99;letter-spacing:-.065em;margin:22px 0}
+.gradient-text{
+  color:transparent;background:linear-gradient(90deg,var(--pink),var(--gold),var(--blue),var(--pink));
+  background-size:200%;background-clip:text;animation:shimmer 6s linear infinite
 }
-.card:hover{transform:translateY(-5px);border-color:var(--pink)}
-.big-icon{font-size:35px}
-.frame{overflow:hidden;border-radius:16px;background:#080617;border:1px solid #ffffff20}
-iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
-input,select{
-  display:block;width:100%;margin:8px 0 15px;padding:13px;
-  background:#120d2a;color:white;border:1px solid #76639c;
-  border-radius:11px
+.hero p{max-width:600px;color:var(--muted);font-size:1.08rem;line-height:1.8}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin:25px 0}
+.btn{
+  border:0;border-radius:99px;padding:13px 19px;font-weight:850;
+  color:#10132d;background:linear-gradient(110deg,var(--gold),var(--pink),var(--blue));
+  background-size:200%;transition:transform .2s,filter .2s;
+  box-shadow:0 8px 24px #ff63c822
 }
-label{display:block;margin-top:10px}
-.chatlog{display:flex;flex-direction:column;gap:10px;max-height:330px;overflow:auto;margin:15px 0}
-.msg{padding:12px 14px;background:#382654;border-radius:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
-.msg.user{background:#4d2e67}
-.answer{color:#f8edff}
-#quiz label{display:flex;gap:9px;align-items:flex-start;margin:12px 0}
-#quiz input{width:auto;margin:5px 0}
-.notice{padding:12px;border-radius:12px;background:#ffffff0b;border:1px solid #ffffff18}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
-.reveal.show{opacity:1;transform:none}
-footer{text-align:center;padding:32px 5%;background:#0b071c;border-top:1px solid #ffffff20}
-#topBtn{position:fixed;right:16px;bottom:16px;z-index:15;border-radius:50%;width:47px;height:47px;padding:0}
-.small{font-size:13px}
-@media(max-width:600px){
- header{justify-content:center}nav{justify-content:center}
- .hero{padding:55px 5%}section{padding:38px 5%}
- .logo-frame{padding:17px}.logo{width:130px;height:130px}
+.btn:hover{transform:translateY(-3px);filter:brightness(1.08);animation:glow 1.2s infinite}
+.btn:active{transform:scale(.97)}
+.btn.secondary{background:var(--panel);border:1px solid var(--border);color:var(--text);box-shadow:none}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;animation:none}
+.small{padding:9px 14px;font-size:.88rem}
+.hero-note{color:var(--muted);font-size:.85rem}
+.hero-art{position:relative;min-height:400px;display:grid;place-items:center}
+.planet{
+  width:min(290px,65vw);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+  position:relative;font-size:100px;
+  background:radial-gradient(circle at 30% 25%,#fff7d7 0,#ff91d6 17%,#8b76ff 46%,#25418f 73%,#101432 100%);
+  box-shadow:inset -25px -30px 55px #05061faa,0 0 90px #9b82ff66;
+  animation:float 6s ease-in-out infinite
+}
+.planet:before,.planet:after{
+  content:"";position:absolute;width:145%;height:34%;border:2px solid #c8f6ff99;
+  border-radius:50%;transform:rotate(-24deg);box-shadow:0 0 20px #68e5ff44
+}
+.planet:after{width:160%;height:42%;transform:rotate(27deg);border-color:#ffc0eb77}
+.planet span{filter:drop-shadow(0 8px 10px #15103988)}
+.float-card{
+  position:absolute;background:var(--panel);border:1px solid var(--border);
+  backdrop-filter:blur(12px);border-radius:18px;padding:13px 15px;
+  box-shadow:0 14px 40px #0002;animation:float 5s ease-in-out infinite
+}
+.float-card b{display:block}.float-card small{color:var(--muted)}
+.fc1{left:0;top:9%}.fc2{right:0;bottom:12%;animation-delay:-2s}.fc3{right:2%;top:7%;animation-delay:-1s}
+
+section{padding:55px 0;scroll-margin-top:85px}
+.section-head{margin-bottom:24px}
+.kicker{font-size:.76rem;font-weight:900;letter-spacing:.17em;text-transform:uppercase;color:var(--pink)}
+.section-head h2{font-size:clamp(1.9rem,4.5vw,2.8rem);letter-spacing:-.04em;margin:8px 0}
+.section-head p{color:var(--muted);line-height:1.7;max-width:700px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card,.panel{
+  background:var(--panel);border:1px solid var(--border);border-radius:23px;
+  padding:22px;box-shadow:0 18px 55px #0002;transition:transform .25s,border-color .25s
+}
+.card{position:relative;overflow:hidden}
+.card:hover{transform:translateY(-5px);border-color:#a58aff99}
+.card .emoji{font-size:2rem;display:block;margin-bottom:12px}
+.card h3,.panel h3{margin:0 0 10px}
+.card p,.panel .description{color:var(--muted);line-height:1.7}
+.card .link-text{color:var(--blue);font-weight:800}
+.card:after{content:"";position:absolute;width:110px;height:110px;background:var(--pink);filter:blur(45px);opacity:.08;right:-40px;bottom:-50px;pointer-events:none}
+.video-grid,.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.video-box{aspect-ratio:16/9;background:#090b22;border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.video-box iframe{width:100%;height:100%;border:0}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.chip{display:inline-block;padding:10px 14px;border:1px solid var(--border);border-radius:99px;background:var(--panel);color:var(--muted)}
+.chip:hover{color:var(--text);border-color:var(--pink)}
+.field{display:flex;flex-direction:column;gap:7px;margin:14px 0}
+.field label{color:var(--muted);font-weight:750;font-size:.9rem}
+.field input,.field select,.chat-input{
+  width:100%;padding:12px 13px;border:1px solid var(--border);
+  background:rgba(3,5,20,.3);color:var(--text);border-radius:13px
+}
+.field select option{background:#151936;color:white}
+.chatbox{height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:12px;margin:14px 0;background:#06091d33;border:1px solid var(--border);border-radius:15px}
+.bubble{max-width:92%;padding:11px 13px;border-radius:15px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.bubble.bot{align-self:flex-start;background:var(--panel);border:1px solid var(--border)}
+.bubble.user{align-self:flex-end;background:linear-gradient(120deg,#9377ff,#e76cc7);color:white}
+.chat-compose{display:flex;gap:8px}
+.chat-compose input{min-width:0;flex:1}
+.quick-prompts{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.quick-prompts button{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:99px;padding:8px 10px}
+.quick-prompts button:hover{border-color:var(--blue);color:var(--text)}
+.idea-result{margin-top:18px;background:#07091e33;border:1px solid var(--border);border-radius:18px;padding:18px}
+.quiz-question{padding:16px 0;border-bottom:1px solid var(--border)}
+.quiz-question:last-of-type{border-bottom:0}
+.quiz-question p{font-weight:800;margin:0 0 10px}
+.choice{display:block;color:var(--muted);padding:5px 0;cursor:pointer}
+.choice input{accent-color:#b88cff;margin-right:8px}
+.status{min-height:24px;margin:12px 0;color:var(--blue);font-weight:750;line-height:1.6}
+.progress{height:8px;border-radius:99px;background:var(--border);overflow:hidden;margin:12px 0 20px}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--blue));transition:width .3s}
+.certificate{
+  color:#30244d;background:linear-gradient(135deg,#fff8d9,#f9d9f0,#d5f6ff);
+  border:6px double #c6a157;border-radius:17px;padding:22px;text-align:center;margin-top:10px
+}
+.certificate .overline{font-size:.7rem;letter-spacing:.2em;font-weight:900}
+.certificate h3{font-family:Georgia,serif;font-size:1.7rem;margin:13px 0}
+.cert-name{font-family:Georgia,serif;font-size:1.6rem;color:#884b9c;border-bottom:1px solid #c2a2cf;display:inline-block;padding:7px 16px;overflow-wrap:anywhere}
+.certificate p{line-height:1.6;font-size:.88rem}
+.tiny{font-size:.82rem;color:var(--muted);line-height:1.65}
+footer{border-top:1px solid var(--border);padding:30px 0 90px;margin-top:25px;color:var(--muted)}
+.footer-row{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+#toTop{
+  position:fixed;bottom:18px;right:18px;z-index:25;width:46px;height:46px;
+  display:none;border-radius:15px;border:1px solid var(--border);
+  background:var(--panel);color:var(--text);font-size:1.2rem
+}
+#toTop.show{display:block}
+#toast{
+  position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);
+  opacity:0;pointer-events:none;background:var(--panel);color:var(--text);
+  border:1px solid var(--border);border-radius:14px;padding:12px 16px;
+  box-shadow:0 10px 35px #0003;z-index:100;transition:.25s;text-align:center;
+  width:max-content;max-width:90vw
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.confetti{position:fixed;top:-20px;z-index:90;pointer-events:none;animation:fall 2.6s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.15}}
+@media(max-width:900px){
+  .navlinks{display:none;position:absolute;top:66px;left:12px;right:12px;flex-direction:column;align-items:stretch;padding:12px;background:var(--panel);border:1px solid var(--border);border-radius:18px}
+  .navlinks.open{display:flex}.navlinks a{padding:13px}
+  #menuButton{display:inline-block}
+  .hero{grid-template-columns:1fr;padding-top:45px}
+  .hero-copy{text-align:center}.hero-copy p{margin-left:auto;margin-right:auto}
+  .actions{justify-content:center}.hero-art{max-width:600px;width:100%;margin:auto}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:620px){
+  main{padding:0 14px}nav{padding:10px 14px}
+  .brand{font-size:.91rem}.brand-icon{width:37px;height:37px}
+  .hero h1{font-size:clamp(2.8rem,14vw,4rem)}
+  .hero-art{min-height:310px}.planet{width:215px;font-size:78px}
+  .fc1{left:0;top:4%}.fc2{right:0;bottom:4%}.fc3{right:0;top:2%}
+  .grid,.video-grid,.tool-grid{grid-template-columns:1fr}
+  section{padding:42px 0}.card,.panel{padding:18px}
+  .certificate{padding:15px 10px}
 }
 @media(prefers-reduced-motion:reduce){
- *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
- .reveal{opacity:1;transform:none}
+  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
+
 <body>
-
-<!-- Opening logo animation -->
-<div id="intro">
-  <div class="intro-box">
-    <div class="intro-stars">✦ ✧ ✦ ✧ ✦</div>
-    <div class="logo-frame">
-      <div class="logo" aria-label="S&S WonderVerse star logo">
-        <svg viewBox="0 0 140 140" role="img" aria-label="WonderVerse logo">
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop stop-color="#ffe9a9"/>
-              <stop offset=".55" stop-color="#ff9ed6"/>
-              <stop offset="1" stop-color="#9deaff"/>
-            </linearGradient>
-          </defs>
-          <circle cx="70" cy="70" r="59" fill="none" stroke="url(#g)" stroke-width="2"/>
-          <path d="M70 20 L81 53 L115 55 L88 76 L97 109 L70 89 L43 109 L52 76 L25 55 L59 53 Z"
-                fill="url(#g)" stroke="#fff5d6" stroke-width="1.5"/>
-          <circle cx="70" cy="68" r="20" fill="#322052"/>
-          <text x="70" y="76" text-anchor="middle" font-size="20"
-                font-weight="900" fill="#fff5d6">S&amp;S</text>
-          <path d="M23 28 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"
-                fill="#fff4c5"/>
-          <path d="M112 96 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"
-                fill="#ffb9e2"/>
-        </svg>
-      </div>
-      <h1 class="gold">S&amp;S WonderVerse</h1>
-      <p>✨ Explore and Have Fun! ✨</p>
-      <p>A little world of wonder, learning and happy memories.</p>
-      <button id="enter">Enter My WonderVerse ✨</button>
-    </div>
-    <p class="small">A magical journey awaits you 💖</p>
-  </div>
-</div>
-
-<div id="space" aria-hidden="true"></div>
+<div id="starfield" aria-hidden="true"></div>
+<div class="aurora a"></div><div class="aurora b"></div>
 
 <header>
-  <div class="brand">🌟 S&amp;S WonderVerse</div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#videos">Videos</a>
-    <a href="#playlists">Playlists</a>
+<nav>
+  <a class="brand" href="#home"><span class="brand-icon">🌌</span><span>S&amp;S WonderVerse</span></a>
+  <div class="navlinks" id="navLinks">
+    <a href="#explore">Explore</a>
+    <a href="#videos">YouTube</a>
     <a href="#wonderbot">WonderBot</a>
+    <a href="#challenge">Challenge</a>
     <a href="#certificate">Certificate</a>
-  </nav>
+  </div>
+  <div class="nav-actions">
+    <button class="icon-btn" id="themeButton" type="button" onclick="toggleTheme()" aria-label="Switch theme">☀️</button>
+    <button class="icon-btn" id="menuButton" type="button" onclick="toggleMenu()" aria-label="Open navigation">☰</button>
+  </div>
+</nav>
 </header>
 
-<div class="hero" id="home">
-  <div class="hero-inner">
-    <div class="gold">✦ WELCOME, WONDER EXPLORER ✦</div>
-    <h1>Where <span class="gold">Imagination</span><br>Comes Alive!</h1>
-    <p>
-      Explore wonderful videos, discover new ideas, learn something
-      exciting, and celebrate the kindness and creativity within you.
-    </p>
+<main id="home">
+<section class="hero">
+  <div class="hero-copy">
+    <div class="pill"><span class="live-dot"></span> Your adventure starts here</div>
+    <h1>Big ideas.<br><span class="gradient-text">Wonder-full</span><br>adventures.</h1>
+    <p>Welcome to your colourful universe of creativity, technology, science, videos and fun. Explore a new idea, ask a question, take a challenge and make something wonderful!</p>
     <div class="actions">
-      <a class="btn" id="channelLink"
-        href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ"
-        target="_blank" rel="noopener">▶ Visit Our Channel</a>
-      <a class="btn alt" href="#certificate">🏆 Earn Your Certificate</a>
+      <a class="btn" href="#explore">Explore the universe ✨</a>
+      <a class="btn secondary" href="#videos">Watch videos ▶</a>
     </div>
+    <div class="hero-note">🌈 Keep learning • Keep creating • Keep being kind</div>
   </div>
-</div>
-
-<main>
-<section id="videos" class="reveal">
-  <h2>🎬 Fresh from WonderVerse</h2>
-  <p class="muted">Explore our public YouTube uploads in one magical place.</p>
-  <div class="panel">
-    <div class="frame">
-      <iframe id="uploads" title="S&S WonderVerse latest uploads"
-        loading="lazy" allowfullscreen
-        referrerpolicy="strict-origin-when-cross-origin"></iframe>
-    </div>
-    <p class="muted">Browse the playlist inside the player to discover videos.</p>
-    <a class="btn" id="allVideos"
-      href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ/videos"
-      target="_blank" rel="noopener">Watch All Videos ↗</a>
+  <div class="hero-art">
+    <div class="planet"><span>🚀</span></div>
+    <div class="float-card fc1"><b>🤖 WonderBot</b><small>Ask me something!</small></div>
+    <div class="float-card fc2"><b>🎨 Idea Lab</b><small>Make imagination real</small></div>
+    <div class="float-card fc3"><b>🏅 Level up</b><small>Try a challenge</small></div>
   </div>
 </section>
 
-<section id="playlists" class="reveal">
-  <h2>🌈 Worlds to Explore</h2>
-  <p class="muted">Choose a collection and begin your next adventure.</p>
-  <div class="grid" id="playlistCards"></div>
-  <p class="notice muted small">
-    To activate a category, add its YouTube playlist ID in the
-    PLAYLISTS list near the bottom of this file.
-  </p>
+<section id="explore">
+  <div class="section-head">
+    <div class="kicker">Choose your portal</div>
+    <h2>What shall we explore today?</h2>
+    <p>Choose an adventure. Each section is ready to use!</p>
+  </div>
+  <div class="grid">
+    <a class="card" href="#videos"><span class="emoji">🎬</span><h3>Video Galaxy</h3><p>Watch channel videos, explore Shorts and find playlists.</p><span class="link-text">Explore videos ↗</span></a>
+    <a class="card" href="#wonderbot"><span class="emoji">🤖</span><h3>WonderBot</h3><p>Ask questions about robotics, science, studying and creativity.</p><span class="link-text">Meet WonderBot ↗</span></a>
+    <a class="card" href="#challenge"><span class="emoji">🧩</span><h3>Wonder Challenge</h3><p>Test your knowledge with a quick four-question quiz.</p><span class="link-text">Start the quiz ↗</span></a>
+    <a class="card" href="#certificate"><span class="emoji">🏅</span><h3>Certificate Studio</h3><p>Pass the quiz and create a certificate with your name.</p><span class="link-text">Make a certificate ↗</span></a>
+    <a class="card" href="#ideaLab"><span class="emoji">🔬</span><h3>Idea Lab</h3><p>Get new ideas for robotics, science, art and storytelling.</p><span class="link-text">Get an idea ↗</span></a>
+    <a class="card" href="#last"><span class="emoji">🌟</span><h3>Keep Exploring</h3><p>Discover something new, stay curious and have fun.</p><span class="link-text">Continue ↗</span></a>
+  </div>
 </section>
 
-<section id="wonderbot" class="reveal">
-  <h2>🤖 Meet WonderBot</h2>
-  <p class="muted">
-    Your friendly learning companion! Ask about science, online safety,
-    creativity, study tips, kindness or videos.
-  </p>
-  <div class="panel">
-    <div class="chatlog" id="chatlog" aria-live="polite">
-      <div class="msg">
-        <strong>WonderBot ✨</strong><br>
-        Hello, Wonder Explorer! Ask me a question, or try:
-        “How can I stay safe online?”
+<section id="videos">
+  <div class="section-head">
+    <div class="kicker">From our channel</div>
+    <h2>Welcome to the Video Galaxy 🎥</h2>
+    <p>Watch uploads from your YouTube channel. If YouTube blocks an embedded player, use the channel links below.</p>
+  </div>
+  <div class="video-grid">
+    <div class="panel">
+      <h3>🚀 Latest uploads</h3>
+      <div class="video-box">
+        <iframe title="Latest S and S WonderVerse uploads" loading="lazy"
+          src="https://www.youtube-nocookie.com/embed/videoseries?list=UU28hqtuIPXdBXCTZxm76wdQ"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <p class="tiny">The embedded player needs an internet connection.</p>
+    </div>
+    <div class="panel">
+      <h3>📺 Explore our channel</h3>
+      <div class="video-box">
+        <iframe title="S and S WonderVerse channel" loading="lazy"
+          src="https://www.youtube-nocookie.com/embed?listType=user_uploads&list=SSWonderVerse"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <p class="tiny">Open the channel directly if this player is unavailable.</p>
+    </div>
+  </div>
+  <div class="chips">
+    <a class="chip" href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ" target="_blank" rel="noopener">▶ Visit channel</a>
+    <a class="chip" href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ/videos" target="_blank" rel="noopener">🎞️ All videos</a>
+    <a class="chip" href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ/shorts" target="_blank" rel="noopener">⚡ Shorts</a>
+    <a class="chip" href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ/playlists" target="_blank" rel="noopener">📚 Playlists</a>
+  </div>
+</section>
+
+<section id="wonderbot">
+  <div class="section-head">
+    <div class="kicker">Your friendly idea companion</div>
+    <h2>Meet WonderBot 🤖</h2>
+    <p>This built-in assistant uses prepared answers and works without a paid AI API. It is not a live, all-purpose AI model.</p>
+  </div>
+  <div class="tool-grid">
+    <div class="panel">
+      <h3>💬 Ask WonderBot</h3>
+      <p class="description">Ask about robotics, science, study tips, kindness, creativity or online safety.</p>
+      <div class="chatbox" id="chatBox" aria-live="polite">
+        <div class="bubble bot">Hello, explorer! 🌟 I'm WonderBot. Choose a suggested question or type your own.</div>
+      </div>
+      <form class="chat-compose" onsubmit="sendChat(event)">
+        <input class="chat-input" id="chatInput" maxlength="300" placeholder="Type your question..." required>
+        <button class="btn small" type="submit">Ask ✨</button>
+      </form>
+      <div class="quick-prompts">
+        <button type="button" onclick="quickAsk('Give me a robotics project idea')">🤖 Robotics</button>
+        <button type="button" onclick="quickAsk('Tell me a science fact')">🔬 Science</button>
+        <button type="button" onclick="quickAsk('Help me study better')">📚 Study tips</button>
+        <button type="button" onclick="quickAsk('How can I stay safe online?')">🛡️ Online safety</button>
       </div>
     </div>
-    <form id="chatForm">
-      <label for="question">What would you like to learn?</label>
-      <input id="question" maxlength="500"
-        placeholder="Ask a question..." required>
-      <button type="submit">Ask WonderBot 💫</button>
-    </form>
-    <p class="small muted">
-      WonderBot uses built-in educational guidance, not a live AI model.
-      For important questions, verify answers with a trusted adult or reliable source.
-    </p>
-  </div>
-</section>
 
-<section id="certificate" class="reveal">
-  <h2>🏆 WonderVerse Certificate Challenge</h2>
-  <p class="muted">
-    Complete this short quiz on kindness, creativity and online safety.
-    Score at least 3 out of 4 to earn your downloadable certificate!
-  </p>
-  <div class="panel">
-    <form id="quiz">
-      <label for="learnerName">Your name for the certificate</label>
-      <input id="learnerName" maxlength="45"
-        placeholder="Enter your name" required>
-
-      <p><strong>1. What should you do before sharing someone's photo?</strong></p>
-      <label><input type="radio" name="q1" value="a" required> Share it immediately</label>
-      <label><input type="radio" name="q1" value="b"> Ask their permission</label>
-
-      <p><strong>2. What is a good response to someone making a mistake?</strong></p>
-      <label><input type="radio" name="q2" value="a" required> Laugh at them</label>
-      <label><input type="radio" name="q2" value="b"> Help them kindly</label>
-
-      <p><strong>3. What should you do with a suspicious online link?</strong></p>
-      <label><input type="radio" name="q3" value="a" required> Ask a trusted adult and avoid opening it</label>
-      <label><input type="radio" name="q3" value="b"> Open it quickly</label>
-
-      <p><strong>4. How can you show creativity?</strong></p>
-      <label><input type="radio" name="q4" value="a" required> Explore ideas and make something of your own</label>
-      <label><input type="radio" name="q4" value="b"> Copy someone without credit</label>
-
-      <button type="submit">Check My Answers ✨</button>
-    </form>
-    <div id="quizResult" class="output" aria-live="polite"></div>
-    <div id="certificateActions" hidden>
-      <button id="downloadCert" type="button">⬇ Download My Certificate (PNG)</button>
-    </div>
-    <p class="small muted">
-      This is a fun participation-style learning certificate, not an
-      official qualification or accredited award.
-    </p>
-  </div>
-</section>
-</main>
-
-<footer>
-  <h3 class="gold">✨ S&amp;S WonderVerse ✨</h3>
-  <p>Explore and Have Fun!</p>
-  <p class="muted">Be kind, stay curious, and let your imagination shine.</p>
-  <a href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ"
-     target="_blank" rel="noopener">Visit Our YouTube Channel</a>
-  <p class="small muted">© <span id="year"></span> S&amp;S WonderVerse</p>
-</footer>
-<button id="topBtn" aria-label="Back to top">↑</button>
-
-<script>
-// Your real YouTube channel ID
-const CHANNEL_ID = "UC28hqtuIPXdBXCTZxm76wdQ";
-const CHANNEL_URL =
-  "https://www.youtube.com/channel/" + CHANNEL_ID;
-const UPLOADS_ID = "UU" + CHANNEL_ID.slice(2);
-
-document.getElementById("year").textContent =
-  new Date().getFullYear();
-
-document.getElementById("uploads").src =
-  "https://www.youtube-nocookie.com/embed/videoseries?list=" +
-  encodeURIComponent(UPLOADS_ID);
-
-document.getElementById("channelLink").href = CHANNEL_URL;
-document.getElementById("allVideos").href = CHANNEL_URL + "/videos";
-
-// Opening animation
-document.getElementById("enter").addEventListener("click", () => {
-  document.getElementById("intro").classList.add("done");
-});
-
-// Floating background stars
-const space = document.getElementById("space");
-for (let i = 0; i < 45; i++) {
-  const star = document.createElement("span");
-  star.className = "star";
-  star.textContent = i % 3 === 0 ? "✦" : "·";
-  star.style.left = Math.random() * 100 + "%";
-  star.style.top = Math.random() * 100 + "%";
-  star.style.fontSize = (10 + Math.random() * 16) + "px";
-  star.style.animationDelay = Math.random() * 3 + "s";
-  space.appendChild(star);
-}
-
-// Replace blank IDs with your actual YouTube playlist IDs.
-const PLAYLISTS = [
-  {name:"Fun & Adventures",emoji:"🎡",
-   desc:"Vlogs, experiences and happy memories.",id:""},
-  {name:"Creative Corner",emoji:"🎨",
-   desc:"Art, crafts and imaginative creations.",id:""},
-  {name:"Wonder Shorts",emoji:"⚡",
-   desc:"Short videos and quick surprises.",id:""},
-  {name:"Learn & Discover",emoji:"🔭",
-   desc:"Explore interesting ideas and new things.",id:""}
-];
-
-const playlistArea = document.getElementById("playlistCards");
-PLAYLISTS.forEach(p => {
-  const card = document.createElement("article");
-  card.className = "card";
-  const icon = document.createElement("div");
-  icon.className = "big-icon";
-  icon.textContent = p.emoji;
-  const title = document.createElement("h3");
-  title.textContent = p.name;
-  const desc = document.createElement("p");
-  desc.className = "muted";
-  desc.textContent = p.desc;
-  const link = document.createElement("a");
-  link.className = "btn";
-  link.textContent = p.id ? "Explore Playlist ↗" : "Find My Playlists ↗";
-  link.href = p.id
-    ? "https://www.youtube.com/playlist?list=" + encodeURIComponent(p.id)
-    : CHANNEL_URL + "/playlists";
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  card.append(icon,title,desc,link);
-  playlistArea.appendChild(card);
-});
-
-// Smooth reveal effects
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:.08});
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-} else {
-  document.querySelectorAll(".reveal").forEach(el => el.classList.add("show"));
-}
-
-document.getElementById("topBtn").addEventListener("click", () => {
-  window.scrollTo({top:0,behavior:"smooth"});
-});
-
-// Educational helper: transparent built-in knowledge, no paid API.
-const KNOWLEDGE = [
-  {
-    keys:["online safety","safe online","internet safety","suspicious link","password","privacy"],
-    answer:"🔐 ONLINE SAFETY\n• Keep passwords private and use strong, unique ones.\n• Never share your home address, school details or private information publicly.\n• Avoid suspicious links and downloads.\n• If someone makes you uncomfortable online, stop responding and tell a trusted adult."
-  },
-  {
-    keys:["kindness","bullying","rude","mean","respect"],
-    answer:"💗 KINDNESS MATTERS\nListen respectfully, avoid hurtful comments, and include others. If you see bullying, support the person safely and tell a trusted adult. You can disagree without being unkind."
-  },
-  {
-    keys:["study","studying","exam","focus","homework"],
-    answer:"📚 A HELPFUL STUDY PLAN\n1. Choose one small goal.\n2. Study for 20–25 minutes.\n3. Take a short break.\n4. Practise recalling what you learned.\n5. Review mistakes and ask for help when needed."
-  },
-  {
-    keys:["science","scientific method","experiment"],
-    answer:"🔬 THE SCIENTIFIC METHOD\nAsk a question → form a hypothesis → plan a safe test → observe and record results → draw a conclusion. Change only the variables you need to test, and never try dangerous experiments."
-  },
-  {
-    keys:["creativity","creative","art","craft","idea"],
-    answer:"🎨 TRY A CREATIVE CHALLENGE\nCreate a recycled-material sculpture, design a kindness poster, write a mini story, or build a paper bridge. Make your own design, test it, and improve it!"
-  },
-  {
-    keys:["robot","robotics","arduino","coding"],
-    answer:"🤖 ROBOTICS STARTER IDEA\nBegin with a simple simulation or a low-voltage LED project. Learn inputs, outputs and conditions, then add one sensor at a time. Ask a knowledgeable adult to check wiring and power before connecting hardware."
-  },
-  {
-    keys:["environment","planet","recycle","climate"],
-    answer:"🌍 HELP THE PLANET\nReduce waste, reuse useful items, separate recycling according to local rules, save water and electricity, and care for plants. Small consistent actions can help."
-  },
-  {
-    keys:["certificate","quiz","score"],
-    answer:"🏆 Visit the WonderVerse Certificate Challenge! Answer all four questions. Score at least three correctly to unlock your downloadable creativity and kindness certificate."
-  }
-];
-
-function answerQuestion(raw) {
-  const q = raw.toLowerCase();
-  for (const item of KNOWLEDGE) {
-    if (item.keys.some(k => q.includes(k))) return item.answer;
-  }
-  if (/\b(hi|hello|hey)\b/.test(q))
-    return "🌟 Hello, Wonder Explorer! I can help with study tips, online safety, science, kindness, creativity and beginner robotics. What would you like to learn?";
-  if (q.includes("video") || q.includes("youtube") || q.includes("playlist"))
-    return "🎬 Open the Fresh from WonderVerse section to watch recent uploads, or choose a collection in Worlds to Explore. Add playlist IDs in the code to link each category directly.";
-  if (q.includes("who are you") || q.includes("what can you do"))
-    return "✨ I'm WonderBot, the educational helper on S&S WonderVerse! I offer built-in learning guidance about online safety, study skills, science, kindness, creativity and robotics.";
-  return "💫 I don't have a reliable built-in answer for that yet. Try asking about online safety, study tips, science, kindness, creativity, the environment or beginner robotics. For complex or important questions, check a trusted source.";
-}
-
-function addMessage(who,text,user=false) {
-  const div = document.createElement("div");
-  div.className = "msg" + (user ? " user" : "");
-  const strong = document.createElement("strong");
-  strong.textContent = who;
-  const content = document.createElement("div");
-  content.className = "answer";
-  content.textContent = text;
-  div.append(strong,content);
-  document.getElementById("chatlog").
+    <div class="panel" id="ideaLab">
+      <h3>💡 Idea Lab</h3>
+      <p class="description">Choose a category and discover a new mini project.</p>
+      <div class="field">
+        <label for="ideaCategory">Choose an adventure</label>
+        <select id="ideaCategory">
+          <option value="robotics">Robotics and coding</option>
+          <option value="science">Science discovery</option>
+          <option value="art">Art and craft</option>
+          <option value="writing">Storytelling</option>
+          <option value="earth">Planet care</option>
+        </select>
+      </div>
+      <button class="btn" type="button" onclick="generateIdea()">Surprise me! 🎲</button>
+      <div class="idea-result" aria-live="polite">
+        <div class="emoji" id="ideaEmoji">🪄</div>
+        <h3 id="ideaTitle">Your next idea is w
