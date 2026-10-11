@@ -3,117 +3,469 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>S&S WonderVerse | Explore and Have Fun!</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#100a2b">
+<title>S&S WonderVerse ✨ Explore and Have Fun!</title>
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: #fff;
-  background: #11152b;
-  text-align: center;
+:root{
+  --bg:#100a2b;--panel:#211643;--gold:#ffe4a0;
+  --pink:#ff9ed6;--blue:#9deaff;--purple:#b9a1ff;
+  --white:#fff9ff;--muted:#d4c9ed;
 }
-header {
-  padding: 22px 12px;
-  background: #29245c;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--white);
+  font-family:system-ui,Arial,sans-serif;overflow-x:hidden
 }
-h1 { color: #ffe18a; }
-section { padding: 30px 16px; }
-p { line-height: 1.7; }
-iframe {
-  width: 100%;
-  max-width: 800px;
-  aspect-ratio: 16 / 9;
-  border: 0;
-  border-radius: 14px;
+button,input,select{font:inherit}
+button,a{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible{
+  outline:3px solid var(--blue);outline-offset:3px
 }
-.btn {
-  display: inline-block;
-  padding: 12px 20px;
-  margin: 10px;
-  background: #ff477e;
-  color: white;
-  text-decoration: none;
-  border-radius: 25px;
+a{color:var(--blue)}
+button{
+  border:0;cursor:pointer;color:#24113b;font-weight:800;
+  background:linear-gradient(120deg,var(--gold),var(--pink));
+  border-radius:14px;padding:12px 18px;
+  transition:transform .2s,filter .2s
+}
+button:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn{
+  display:inline-block;padding:12px 18px;border-radius:14px;
+  text-decoration:none;font-weight:800;color:#25133d;
+  background:linear-gradient(120deg,var(--gold),var(--pink))
+}
+.btn.alt{background:#ffffff12;color:white;border:1px solid #ffffff40}
+#intro{
+  position:fixed;inset:0;z-index:1000;
+  display:grid;place-items:center;text-align:center;
+  padding:22px;background:
+    radial-gradient(ellipse at top,#573b91 0%,transparent 55%),
+    radial-gradient(ellipse at bottom,#3b205f 0%,#100a2b 70%);
+  transition:opacity .8s,visibility .8s
+}
+#intro.done{opacity:0;visibility:hidden;pointer-events:none}
+.intro-box{max-width:540px;width:100%;animation:introIn 1.2s both}
+@keyframes introIn{
+  from{opacity:0;transform:translateY(25px) scale(.92)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.logo-frame{
+  position:relative;padding:25px;border-radius:32px;
+  border:2px solid var(--gold);
+  background:linear-gradient(145deg,#ffffff12,#ffffff03);
+  box-shadow:0 0 22px #ffe4a055,inset 0 0 22px #b9a1ff18;
+  animation:frameGlow 3s infinite alternate
+}
+@keyframes frameGlow{
+  from{box-shadow:0 0 14px #ffe4a044,inset 0 0 15px #b9a1ff18}
+  to{box-shadow:0 0 40px #ff9ed666,inset 0 0 28px #b9a1ff35}
+}
+.logo{
+  width:155px;height:155px;margin:auto;
+  display:grid;place-items:center;border-radius:50%;
+  border:3px double var(--gold);
+  background:radial-gradient(circle,#6546a1,#21143f 70%);
+  box-shadow:inset 0 0 25px #ffffff30;
+}
+.logo svg{width:125px;height:125px}
+#intro h1{font-size:clamp(27px,6vw,43px);margin:22px 0 8px}
+.gold{color:var(--gold)}
+#intro p{color:var(--muted);line-height:1.7}
+.intro-stars{font-size:23px;letter-spacing:10px;animation:twinkle 2s infinite alternate}
+@keyframes twinkle{to{opacity:.55;transform:scale(1.04)}}
+#space{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse at 10% 15%,#39225b55,transparent 40%)
+}
+.star{position:absolute;color:#fff1bd;animation:twinkle 3s infinite alternate}
+header{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:13px 5%;background:#160e2fee;
+  border-bottom:1px solid #ffffff1c;backdrop-filter:blur(14px)
+}
+.brand{font-weight:900;color:var(--gold)}
+nav{display:flex;gap:13px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--muted);font-size:14px}
+nav a:hover{color:white}
+.hero{
+  text-align:center;padding:75px 6%;
+  background:linear-gradient(120deg,#402565,#201644,#612b62,#242358);
+  background-size:300% 300%;animation:gradient 16s infinite
+}
+@keyframes gradient{50%{background-position:100% 50%}}
+.hero-inner{max-width:800px;margin:auto}
+h1{font-size:clamp(36px,7vw,65px);line-height:1.1}
+.hero p{max-width:650px;margin:20px auto 28px;color:#f0e7ff;line-height:1.8}
+.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+section{max-width:1180px;margin:auto;padding:48px 6%;scroll-margin-top:75px}
+h2{font-size:clamp(25px,4vw,34px);margin:0 0 10px}
+.muted{color:var(--muted);line-height:1.75}
+.panel{
+  background:linear-gradient(145deg,#291c4a,#18112f);
+  border:1px solid #ffffff20;border-radius:22px;padding:20px
+}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr));gap:16px;margin-top:20px}
+.card{
+  padding:19px;border-radius:18px;
+  background:linear-gradient(145deg,#332252,#1d1639);
+  border:1px solid #ffffff20;transition:transform .25s,border-color .25s
+}
+.card:hover{transform:translateY(-5px);border-color:var(--pink)}
+.big-icon{font-size:35px}
+.frame{overflow:hidden;border-radius:16px;background:#080617;border:1px solid #ffffff20}
+iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+input,select{
+  display:block;width:100%;margin:8px 0 15px;padding:13px;
+  background:#120d2a;color:white;border:1px solid #76639c;
+  border-radius:11px
+}
+label{display:block;margin-top:10px}
+.chatlog{display:flex;flex-direction:column;gap:10px;max-height:330px;overflow:auto;margin:15px 0}
+.msg{padding:12px 14px;background:#382654;border-radius:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.user{background:#4d2e67}
+.answer{color:#f8edff}
+#quiz label{display:flex;gap:9px;align-items:flex-start;margin:12px 0}
+#quiz input{width:auto;margin:5px 0}
+.notice{padding:12px;border-radius:12px;background:#ffffff0b;border:1px solid #ffffff18}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+.reveal.show{opacity:1;transform:none}
+footer{text-align:center;padding:32px 5%;background:#0b071c;border-top:1px solid #ffffff20}
+#topBtn{position:fixed;right:16px;bottom:16px;z-index:15;border-radius:50%;width:47px;height:47px;padding:0}
+.small{font-size:13px}
+@media(max-width:600px){
+ header{justify-content:center}nav{justify-content:center}
+ .hero{padding:55px 5%}section{padding:38px 5%}
+ .logo-frame{padding:17px}.logo{width:130px;height:130px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+ .reveal{opacity:1;transform:none}
 }
 </style>
 </head>
 <body>
 
+<!-- Opening logo animation -->
+<div id="intro">
+  <div class="intro-box">
+    <div class="intro-stars">✦ ✧ ✦ ✧ ✦</div>
+    <div class="logo-frame">
+      <div class="logo" aria-label="S&S WonderVerse star logo">
+        <svg viewBox="0 0 140 140" role="img" aria-label="WonderVerse logo">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#ffe9a9"/>
+              <stop offset=".55" stop-color="#ff9ed6"/>
+              <stop offset="1" stop-color="#9deaff"/>
+            </linearGradient>
+          </defs>
+          <circle cx="70" cy="70" r="59" fill="none" stroke="url(#g)" stroke-width="2"/>
+          <path d="M70 20 L81 53 L115 55 L88 76 L97 109 L70 89 L43 109 L52 76 L25 55 L59 53 Z"
+                fill="url(#g)" stroke="#fff5d6" stroke-width="1.5"/>
+          <circle cx="70" cy="68" r="20" fill="#322052"/>
+          <text x="70" y="76" text-anchor="middle" font-size="20"
+                font-weight="900" fill="#fff5d6">S&amp;S</text>
+          <path d="M23 28 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"
+                fill="#fff4c5"/>
+          <path d="M112 96 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"
+                fill="#ffb9e2"/>
+        </svg>
+      </div>
+      <h1 class="gold">S&amp;S WonderVerse</h1>
+      <p>✨ Explore and Have Fun! ✨</p>
+      <p>A little world of wonder, learning and happy memories.</p>
+      <button id="enter">Enter My WonderVerse ✨</button>
+    </div>
+    <p class="small">A magical journey awaits you 💖</p>
+  </div>
+</div>
+
+<div id="space" aria-hidden="true"></div>
+
 <header>
-  <h1>🎉 S&S WonderVerse 🤩</h1>
-  <p>Explore and Have Fun!</p>
+  <div class="brand">🌟 S&amp;S WonderVerse</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#videos">Videos</a>
+    <a href="#playlists">Playlists</a>
+    <a href="#wonderbot">WonderBot</a>
+    <a href="#certificate">Certificate</a>
+  </nav>
 </header>
 
-<section>
-  <h2>💖 Welcome to Our Wonderful World!</h2>
-  <p>
-    A happy place filled with creativity, fun,
-    adventures and beautiful memories.
-    Let's explore and enjoy together! 🌈
-  </p>
-  <a class="btn" id="channelLink"
-     href="https://www.youtube.com/"
-     target="_blank" rel="noopener">
-     Visit Our YouTube Channel ▶
-  </a>
+<div class="hero" id="home">
+  <div class="hero-inner">
+    <div class="gold">✦ WELCOME, WONDER EXPLORER ✦</div>
+    <h1>Where <span class="gold">Imagination</span><br>Comes Alive!</h1>
+    <p>
+      Explore wonderful videos, discover new ideas, learn something
+      exciting, and celebrate the kindness and creativity within you.
+    </p>
+    <div class="actions">
+      <a class="btn" id="channelLink"
+        href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ"
+        target="_blank" rel="noopener">▶ Visit Our Channel</a>
+      <a class="btn alt" href="#certificate">🏆 Earn Your Certificate</a>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="videos" class="reveal">
+  <h2>🎬 Fresh from WonderVerse</h2>
+  <p class="muted">Explore our public YouTube uploads in one magical place.</p>
+  <div class="panel">
+    <div class="frame">
+      <iframe id="uploads" title="S&S WonderVerse latest uploads"
+        loading="lazy" allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <p class="muted">Browse the playlist inside the player to discover videos.</p>
+    <a class="btn" id="allVideos"
+      href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ/videos"
+      target="_blank" rel="noopener">Watch All Videos ↗</a>
+  </div>
 </section>
 
-<section>
-  <h2>✨ Latest Highlights ✨</h2>
-  <p>Discover our latest videos and Shorts!</p>
-
-  <iframe id="playlist"
-    title="S&S WonderVerse YouTube uploads"
-    loading="lazy"
-    allowfullscreen>
-  </iframe>
-
-  <p>
-    New public uploads can appear in this playlist
-    automatically. YouTube may take time to update.
+<section id="playlists" class="reveal">
+  <h2>🌈 Worlds to Explore</h2>
+  <p class="muted">Choose a collection and begin your next adventure.</p>
+  <div class="grid" id="playlistCards"></div>
+  <p class="notice muted small">
+    To activate a category, add its YouTube playlist ID in the
+    PLAYLISTS list near the bottom of this file.
   </p>
-
-  <a class="btn" id="videosLink"
-     href="https://www.youtube.com/"
-     target="_blank" rel="noopener">
-     Watch All Videos
-  </a>
 </section>
+
+<section id="wonderbot" class="reveal">
+  <h2>🤖 Meet WonderBot</h2>
+  <p class="muted">
+    Your friendly learning companion! Ask about science, online safety,
+    creativity, study tips, kindness or videos.
+  </p>
+  <div class="panel">
+    <div class="chatlog" id="chatlog" aria-live="polite">
+      <div class="msg">
+        <strong>WonderBot ✨</strong><br>
+        Hello, Wonder Explorer! Ask me a question, or try:
+        “How can I stay safe online?”
+      </div>
+    </div>
+    <form id="chatForm">
+      <label for="question">What would you like to learn?</label>
+      <input id="question" maxlength="500"
+        placeholder="Ask a question..." required>
+      <button type="submit">Ask WonderBot 💫</button>
+    </form>
+    <p class="small muted">
+      WonderBot uses built-in educational guidance, not a live AI model.
+      For important questions, verify answers with a trusted adult or reliable source.
+    </p>
+  </div>
+</section>
+
+<section id="certificate" class="reveal">
+  <h2>🏆 WonderVerse Certificate Challenge</h2>
+  <p class="muted">
+    Complete this short quiz on kindness, creativity and online safety.
+    Score at least 3 out of 4 to earn your downloadable certificate!
+  </p>
+  <div class="panel">
+    <form id="quiz">
+      <label for="learnerName">Your name for the certificate</label>
+      <input id="learnerName" maxlength="45"
+        placeholder="Enter your name" required>
+
+      <p><strong>1. What should you do before sharing someone's photo?</strong></p>
+      <label><input type="radio" name="q1" value="a" required> Share it immediately</label>
+      <label><input type="radio" name="q1" value="b"> Ask their permission</label>
+
+      <p><strong>2. What is a good response to someone making a mistake?</strong></p>
+      <label><input type="radio" name="q2" value="a" required> Laugh at them</label>
+      <label><input type="radio" name="q2" value="b"> Help them kindly</label>
+
+      <p><strong>3. What should you do with a suspicious online link?</strong></p>
+      <label><input type="radio" name="q3" value="a" required> Ask a trusted adult and avoid opening it</label>
+      <label><input type="radio" name="q3" value="b"> Open it quickly</label>
+
+      <p><strong>4. How can you show creativity?</strong></p>
+      <label><input type="radio" name="q4" value="a" required> Explore ideas and make something of your own</label>
+      <label><input type="radio" name="q4" value="b"> Copy someone without credit</label>
+
+      <button type="submit">Check My Answers ✨</button>
+    </form>
+    <div id="quizResult" class="output" aria-live="polite"></div>
+    <div id="certificateActions" hidden>
+      <button id="downloadCert" type="button">⬇ Download My Certificate (PNG)</button>
+    </div>
+    <p class="small muted">
+      This is a fun participation-style learning certificate, not an
+      official qualification or accredited award.
+    </p>
+  </div>
+</section>
+</main>
 
 <footer>
-  <p>Made with 💖, smiles and imagination!</p>
-  <p>© <span id="year"></span> S&S WonderVerse</p>
+  <h3 class="gold">✨ S&amp;S WonderVerse ✨</h3>
+  <p>Explore and Have Fun!</p>
+  <p class="muted">Be kind, stay curious, and let your imagination shine.</p>
+  <a href="https://www.youtube.com/channel/UC28hqtuIPXdBXCTZxm76wdQ"
+     target="_blank" rel="noopener">Visit Our YouTube Channel</a>
+  <p class="small muted">© <span id="year"></span> S&amp;S WonderVerse</p>
 </footer>
+<button id="topBtn" aria-label="Back to top">↑</button>
 
 <script>
+// Your real YouTube channel ID
 const CHANNEL_ID = "UC28hqtuIPXdBXCTZxm76wdQ";
+const CHANNEL_URL =
+  "https://www.youtube.com/channel/" + CHANNEL_ID;
+const UPLOADS_ID = "UU" + CHANNEL_ID.slice(2);
 
 document.getElementById("year").textContent =
   new Date().getFullYear();
 
-if (CHANNEL_ID.startsWith("UC") &&
-    CHANNEL_ID.length > 2 &&
-    !CHANNEL_ID.includes(" ")) {
+document.getElementById("uploads").src =
+  "https://www.youtube-nocookie.com/embed/videoseries?list=" +
+  encodeURIComponent(UPLOADS_ID);
 
-  const playlistID = "UU" + CHANNEL_ID.slice(2);
+document.getElementById("channelLink").href = CHANNEL_URL;
+document.getElementById("allVideos").href = CHANNEL_URL + "/videos";
 
-  document.getElementById("playlist").src =
-    "https://www.youtube-nocookie.com/embed/videoseries?list="
-    + encodeURIComponent(playlistID);
+// Opening animation
+document.getElementById("enter").addEventListener("click", () => {
+  document.getElementById("intro").classList.add("done");
+});
 
-  const channel =
-    "https://www.youtube.com/channel/" + CHANNEL_ID;
-
-  document.getElementById("channelLink").href = channel;
-  document.getElementById("videosLink").href =
-    channel + "/videos";
-} else {
-  document.getElementById("playlist").style.display = "none";
-  document.querySelector("section:nth-of-type(2) p").textContent =
-    "Add your YouTube Channel ID in the code to show your uploads.";
+// Floating background stars
+const space = document.getElementById("space");
+for (let i = 0; i < 45; i++) {
+  const star = document.createElement("span");
+  star.className = "star";
+  star.textContent = i % 3 === 0 ? "✦" : "·";
+  star.style.left = Math.random() * 100 + "%";
+  star.style.top = Math.random() * 100 + "%";
+  star.style.fontSize = (10 + Math.random() * 16) + "px";
+  star.style.animationDelay = Math.random() * 3 + "s";
+  space.appendChild(star);
 }
-</script>
 
-</body>
-</html>
+// Replace blank IDs with your actual YouTube playlist IDs.
+const PLAYLISTS = [
+  {name:"Fun & Adventures",emoji:"🎡",
+   desc:"Vlogs, experiences and happy memories.",id:""},
+  {name:"Creative Corner",emoji:"🎨",
+   desc:"Art, crafts and imaginative creations.",id:""},
+  {name:"Wonder Shorts",emoji:"⚡",
+   desc:"Short videos and quick surprises.",id:""},
+  {name:"Learn & Discover",emoji:"🔭",
+   desc:"Explore interesting ideas and new things.",id:""}
+];
+
+const playlistArea = document.getElementById("playlistCards");
+PLAYLISTS.forEach(p => {
+  const card = document.createElement("article");
+  card.className = "card";
+  const icon = document.createElement("div");
+  icon.className = "big-icon";
+  icon.textContent = p.emoji;
+  const title = document.createElement("h3");
+  title.textContent = p.name;
+  const desc = document.createElement("p");
+  desc.className = "muted";
+  desc.textContent = p.desc;
+  const link = document.createElement("a");
+  link.className = "btn";
+  link.textContent = p.id ? "Explore Playlist ↗" : "Find My Playlists ↗";
+  link.href = p.id
+    ? "https://www.youtube.com/playlist?list=" + encodeURIComponent(p.id)
+    : CHANNEL_URL + "/playlists";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  card.append(icon,title,desc,link);
+  playlistArea.appendChild(card);
+});
+
+// Smooth reveal effects
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.08});
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+} else {
+  document.querySelectorAll(".reveal").forEach(el => el.classList.add("show"));
+}
+
+document.getElementById("topBtn").addEventListener("click", () => {
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+// Educational helper: transparent built-in knowledge, no paid API.
+const KNOWLEDGE = [
+  {
+    keys:["online safety","safe online","internet safety","suspicious link","password","privacy"],
+    answer:"🔐 ONLINE SAFETY\n• Keep passwords private and use strong, unique ones.\n• Never share your home address, school details or private information publicly.\n• Avoid suspicious links and downloads.\n• If someone makes you uncomfortable online, stop responding and tell a trusted adult."
+  },
+  {
+    keys:["kindness","bullying","rude","mean","respect"],
+    answer:"💗 KINDNESS MATTERS\nListen respectfully, avoid hurtful comments, and include others. If you see bullying, support the person safely and tell a trusted adult. You can disagree without being unkind."
+  },
+  {
+    keys:["study","studying","exam","focus","homework"],
+    answer:"📚 A HELPFUL STUDY PLAN\n1. Choose one small goal.\n2. Study for 20–25 minutes.\n3. Take a short break.\n4. Practise recalling what you learned.\n5. Review mistakes and ask for help when needed."
+  },
+  {
+    keys:["science","scientific method","experiment"],
+    answer:"🔬 THE SCIENTIFIC METHOD\nAsk a question → form a hypothesis → plan a safe test → observe and record results → draw a conclusion. Change only the variables you need to test, and never try dangerous experiments."
+  },
+  {
+    keys:["creativity","creative","art","craft","idea"],
+    answer:"🎨 TRY A CREATIVE CHALLENGE\nCreate a recycled-material sculpture, design a kindness poster, write a mini story, or build a paper bridge. Make your own design, test it, and improve it!"
+  },
+  {
+    keys:["robot","robotics","arduino","coding"],
+    answer:"🤖 ROBOTICS STARTER IDEA\nBegin with a simple simulation or a low-voltage LED project. Learn inputs, outputs and conditions, then add one sensor at a time. Ask a knowledgeable adult to check wiring and power before connecting hardware."
+  },
+  {
+    keys:["environment","planet","recycle","climate"],
+    answer:"🌍 HELP THE PLANET\nReduce waste, reuse useful items, separate recycling according to local rules, save water and electricity, and care for plants. Small consistent actions can help."
+  },
+  {
+    keys:["certificate","quiz","score"],
+    answer:"🏆 Visit the WonderVerse Certificate Challenge! Answer all four questions. Score at least three correctly to unlock your downloadable creativity and kindness certificate."
+  }
+];
+
+function answerQuestion(raw) {
+  const q = raw.toLowerCase();
+  for (const item of KNOWLEDGE) {
+    if (item.keys.some(k => q.includes(k))) return item.answer;
+  }
+  if (/\b(hi|hello|hey)\b/.test(q))
+    return "🌟 Hello, Wonder Explorer! I can help with study tips, online safety, science, kindness, creativity and beginner robotics. What would you like to learn?";
+  if (q.includes("video") || q.includes("youtube") || q.includes("playlist"))
+    return "🎬 Open the Fresh from WonderVerse section to watch recent uploads, or choose a collection in Worlds to Explore. Add playlist IDs in the code to link each category directly.";
+  if (q.includes("who are you") || q.includes("what can you do"))
+    return "✨ I'm WonderBot, the educational helper on S&S WonderVerse! I offer built-in learning guidance about online safety, study skills, science, kindness, creativity and robotics.";
+  return "💫 I don't have a reliable built-in answer for that yet. Try asking about online safety, study tips, science, kindness, creativity, the environment or beginner robotics. For complex or important questions, check a trusted source.";
+}
+
+function addMessage(who,text,user=false) {
+  const div = document.createElement("div");
+  div.className = "msg" + (user ? " user" : "");
+  const strong = document.createElement("strong");
+  strong.textContent = who;
+  const content = document.createElement("div");
+  content.className = "answer";
+  content.textContent = text;
+  div.append(strong,content);
+  document.getElementById("chatlog").
