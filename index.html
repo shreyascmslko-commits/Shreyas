@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S&S WonderVerse | Explore and Have Fun!</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background: #11152b;
+  text-align: center;
+}
+header {
+  padding: 22px 12px;
+  background: #29245c;
+}
+h1 { color: #ffe18a; }
+section { padding: 30px 16px; }
+p { line-height: 1.7; }
+iframe {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 14px;
+}
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  margin: 10px;
+  background: #ff477e;
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎉 S&S WonderVerse 🤩</h1>
+  <p>Explore and Have Fun!</p>
+</header>
+
+<section>
+  <h2>💖 Welcome to Our Wonderful World!</h2>
+  <p>
+    A happy place filled with creativity, fun,
+    adventures and beautiful memories.
+    Let's explore and enjoy together! 🌈
+  </p>
+  <a class="btn" id="channelLink"
+     href="https://www.youtube.com/"
+     target="_blank" rel="noopener">
+     Visit Our YouTube Channel ▶
+  </a>
+</section>
+
+<section>
+  <h2>✨ Latest Highlights ✨</h2>
+  <p>Discover our latest videos and Shorts!</p>
+
+  <iframe id="playlist"
+    title="S&S WonderVerse YouTube uploads"
+    loading="lazy"
+    allowfullscreen>
+  </iframe>
+
+  <p>
+    New public uploads can appear in this playlist
+    automatically. YouTube may take time to update.
+  </p>
+
+  <a class="btn" id="videosLink"
+     href="https://www.youtube.com/"
+     target="_blank" rel="noopener">
+     Watch All Videos
+  </a>
+</section>
+
+<footer>
+  <p>Made with 💖, smiles and imagination!</p>
+  <p>© <span id="year"></span> S&S WonderVerse</p>
+</footer>
+
+<script>
+const CHANNEL_ID = "UC28hqtuIPXdBXCTZxm76wdQ";
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+if (CHANNEL_ID.startsWith("UC") &&
+    CHANNEL_ID.length > 2 &&
+    !CHANNEL_ID.includes(" ")) {
+
+  const playlistID = "UU" + CHANNEL_ID.slice(2);
+
+  document.getElementById("playlist").src =
+    "https://www.youtube-nocookie.com/embed/videoseries?list="
+    + encodeURIComponent(playlistID);
+
+  const channel =
+    "https://www.youtube.com/channel/" + CHANNEL_ID;
+
+  document.getElementById("channelLink").href = channel;
+  document.getElementById("videosLink").href =
+    channel + "/videos";
+} else {
+  document.getElementById("playlist").style.display = "none";
+  document.querySelector("section:nth-of-type(2) p").textContent =
+    "Add your YouTube Channel ID in the code to show your uploads.";
+}
+</script>
+
+</body>
+</html>
